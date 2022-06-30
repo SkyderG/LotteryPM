@@ -1,0 +1,15 @@
+name: "LotteryPM"
+author: "Skyder"
+
+api: 4.0.0
+version: 0.0.1
+main: lottery\Loader
+
+commands:
+  lottery:
+    description: "Lottery command"
+    permission: "lottery.perm"
+
+permissions:
+  lottery.perm:
+    default: op

@@ -1,0 +1,48 @@
+---
+# Usage messages:
+usage:
+  admin: "/lottery activate {n}/lottery cancel{n}/lottery bet <amount>"
+  player: "/lottery bet <amount> {n}/lottery time"
+
+error:
+  no-permission: "You are not allowed to use this command."
+  no-activated: "Lottery isn't active yet, please try later."
+  no-tip-value: "You did not specify your bet."
+  no-numeric: "This value isn't numeric."
+  no-money: "You don't have ${0} to play the lottery."
+  bet-failed: "You need to bet at least: ${0}."
+  already-enabled: "The lottery is already enabled."
+
+# Success messages
+success:
+  bet-success: "§aYou have successfully bet §f${0} §aon the lottery."
+  player-win: "§aYou win §f${0} §aon the lottery!"
+
+announce:
+  enabled: "§eThe lottery was active.{n}§eAll online players have until §f{0} §eto bet!{n}§e/lottery bet [amount] to participate."
+  running: "Lottery: §aAccumulated §f${0} {n}§l| §r§aParticipants: §f{1} {n}§l| §r§aTime remaining: §f{2}"
+  winner: "Lottery: §aPlayer §f{player} §agot lucky and won §e${0}"
+  no-winner: "Lottery: §cNo players participated. Finishing!"
+  cancelled: "§eThe lottery has been cancelled!{n}§eAll players are receiving a refund."
+
+# Config:
+config:
+  # Economy handler
+  # Available: EconomyAPI, BedrockEconomy
+  economy: "BedrockEconomy"
+
+  # Seconds to finish
+  time: 30
+
+  # Minimum bet
+  minimum-bet: 1000
+
+  # Timezone
+  # Check your timezone in: https://www.php.net/manual/pt_BR/timezones.php
+  timezone: "America/Sao_Paulo"
+
+  # Lottery start times
+  starting-times:
+    - "17:30:00"
+    - "19:30:00"
+...
