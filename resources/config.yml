@@ -1,8 +1,8 @@
 ---
 # Usage messages:
 usage:
-  admin: "/lottery activate {n}/lottery cancel{n}/lottery bet <amount>"
-  player: "/lottery bet <amount> {n}/lottery time"
+  admin: "/lottery activate {n}/lottery cancel{n}/lottery bet <amount>{n}/lottery status"
+  player: "/lottery bet <amount> {n}/lottery status"
 
 error:
   no-permission: "You are not allowed to use this command."
@@ -17,13 +17,15 @@ error:
 success:
   bet-success: "§aYou have successfully bet §f${0} §aon the lottery."
   player-win: "§aYou win §f${0} §aon the lottery!"
+  admin-cancel: "§cYou canceled the lottery."
+  admin-activate: "You activated the lottery!"
 
 announce:
   enabled: "§eThe lottery was active.{n}§eAll online players have until §f{0} §eto bet!{n}§e/lottery bet [amount] to participate."
   running: "Lottery: §aAccumulated §f${0} {n}§l| §r§aParticipants: §f{1} {n}§l| §r§aTime remaining: §f{2}"
   winner: "Lottery: §aPlayer §f{player} §agot lucky and won §e${0}"
   no-winner: "Lottery: §cNo players participated. Finishing!"
-  cancelled: "§eThe lottery has been cancelled!{n}§eAll players are receiving a refund."
+  cancelled: "§eThe lottery has been cancelled!{n}§eAll participating players are receiving a refund."
 
 # Config:
 config:
