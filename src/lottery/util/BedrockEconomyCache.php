@@ -43,8 +43,6 @@ final class BedrockEconomyCache
                 $this->cache[strtolower($player->getName())] = $balance;
             }
         ));
-
-        var_dump($this->cache);
     }
 
     public function removePlayerCache(string $player): bool
