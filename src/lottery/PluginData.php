@@ -121,14 +121,21 @@ class PluginData
             if (strtotime('now') == $time) {
                 $this->setEnabled(true);
 
-                $message = MessageTranslator::translateNested("announce.enabled", [
-                    gmdate("H:i:s", $this->getTime())
-                ]);
-
-                $this->getPlugin()->getServer()->broadcastMessage($message);
+                $this->broadcastAnnounce();
                 $this->getPlugin()->getScheduler()->scheduleRepeatingTask(new RunnerTask($this->getPlugin()), 20);
             }
         }
+    }
+
+    public function forceStart(): void
+    {
+        if ($this->isEnabled()) return;
+
+        $this->setEnabled(true);
+
+        $this->broadcastAnnounce();
+        $this->getPlugin()->getScheduler()->scheduleRepeatingTask(new RunnerTask($this->getPlugin()), 20);
+
     }
 
     public function broadcastAnnounce(): void
@@ -140,7 +147,7 @@ class PluginData
         $message = MessageTranslator::translateNested("announce.running", [
             $this->getTotalPrize(),
             $this->getPlayerCount(),
-            gmdate("H:i:s", $this->getTime() - $target),
+            gmdate("H:i:s", $this->getTime()),
         ]);
 
         $this->getPlugin()->getServer()->broadcastMessage($message);
@@ -248,7 +255,26 @@ class PluginData
     {
         $handler = $this->getEconomyHandler();
 
+        if (!$this->isEnabled()) {
+            $player->sendMessage(MessageTranslator::translateNested("error.no-activated"));
+            return;
+        }
+
         if ($handler instanceof BedrockEconomyCache) {
+            if ($amount < MessageTranslator::translateNested("config.minimum-bet")) {
+                $player->sendMessage(MessageTranslator::translateNested("error.bet-failed", [
+                    MessageTranslator::translateNested("config.minimum-bet")
+                ]));
+                return;
+            }
+
+            if ($handler->getPlayerCache($player->getName()) < $amount) {
+                $player->sendMessage(MessageTranslator::translateNested("error.no-money", [
+                    $amount
+                ]));
+                return;
+            }
+
             $handler->getHandler()->subtractFromPlayerBalance(
                 $player->getName(),
                 $amount,
