@@ -293,6 +293,31 @@ class PluginData
         }
 
         if ($handler instanceof EconomyAPI) {
+            if ($amount < MessageTranslator::translateNested("config.minimum-bet")) {
+
+                $player->sendMessage(MessageTranslator::translateNested("error.bet-failed", [
+
+                    MessageTranslator::translateNested("config.minimum-bet")
+
+                ]));
+
+                return;
+
+            }
+
+            if ($handler->myMoney($player) < $amount) {
+
+                $player->sendMessage(MessageTranslator::translateNested("error.no-money", [
+
+                    $amount
+
+                ]));
+
+                return;
+
+            }
+
+
             $handler->reduceMoney($player, $amount, true);
 
             $message = MessageTranslator::translateNested("success.bet-success", [
