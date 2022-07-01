@@ -286,6 +286,7 @@ class PluginData
                                 $amount
                             ]);
                             $player->sendMessage($message);
+                            $this->setTotalPrize($this->getTotalPrize() + $amount);
                         }
                     }
                 ));
@@ -298,6 +299,7 @@ class PluginData
                 $amount
             ]);
             $player->sendMessage($message);
+            $this->setTotalPrize($this->getTotalPrize() + $amount);
         }
     }
 
